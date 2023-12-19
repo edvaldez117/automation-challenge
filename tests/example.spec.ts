@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { BasePage } from '../pages/base.page';
+import { MainPage } from '../pages/main.page';
 
 test('code challenge', async ({ page }) => {
   const formData = {
@@ -11,15 +11,15 @@ test('code challenge', async ({ page }) => {
     zipCode: '20180'
   };
 
-  const basePage = new BasePage(page);
+  const mainPage = new MainPage(page);
 
-  await basePage.goto();
-  await basePage.basicInfoPage.verifyPageLoaded();
-  await basePage.basicInfoPage.fillForm(formData);
-  await basePage.clickSubmitButton();
-  await basePage.questionsPage.verifyPageLoaded();
-  await basePage.questionsPage.selectNoQuestions();
-  await basePage.clickSubmitButton();
+  await mainPage.goto();
+  await mainPage.basicInfoPage.verifyPageLoads();
+  await mainPage.basicInfoPage.fillForm(formData);
+  await mainPage.clickSubmitButton();
+  await mainPage.questionsPage.verifyPageLoads();
+  await mainPage.questionsPage.selectNoQuestions();
+  await mainPage.clickSubmitButton();
 
   await expect(page.getByText('Additional Information')).toBeVisible();
 });

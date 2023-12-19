@@ -1,15 +1,15 @@
 import { type Locator, Page, expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
-export class QuestionsPage {
-    private page: Page;
-    private questionButtons: Locator;
+export class QuestionsPage extends BasePage {
+    private readonly questionButtons: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.questionButtons = page.locator("//*[@class='row']//label[.//input[@text='No']]");
     }
 
-    async verifyPageLoaded() {
+    async verifyPageLoads() {
         await expect(this.page.getByText('At this time, please answer Yes or No to the following questions:')).toBeVisible();
     }
 

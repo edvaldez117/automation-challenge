@@ -1,7 +1,7 @@
 import { type Locator, Page, expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
-export class BasicInfoPage {
-    private page: Page;
+export class BasicInfoPage extends BasePage {
     private firstNameInput: Locator;
     private lastNameInput: Locator;
     private emailInput: Locator;
@@ -10,7 +10,7 @@ export class BasicInfoPage {
     private zipCodeInput: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page);
         this.firstNameInput = page.getByLabel('First Name');
         this.lastNameInput = page.getByLabel('Last Name');
         this.emailInput = page.getByLabel('Email Address');
@@ -19,7 +19,7 @@ export class BasicInfoPage {
         this.zipCodeInput = page.getByLabel('Zip Code');
     }
 
-    async verifyPageLoaded() {
+    async verifyPageLoads() {
         await expect(this.page.getByText('Let’s begin by getting some basic information!')).toBeVisible();
     }
 
