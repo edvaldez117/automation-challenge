@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "./base.page";
+import { EmployerServicesPage } from "./employer.services.page";
 
 export class AdditionalInfoPage extends BasePage {
     private readonly confirmationInput: Locator;
@@ -17,5 +18,10 @@ export class AdditionalInfoPage extends BasePage {
 
     async verifyInputValue(expectedValue: string) {
         await expect(this.confirmationInput).toHaveValue(expectedValue);
+    }
+
+    async clickSubmitButton() {
+        await this.submitButton.click();
+        return new EmployerServicesPage(this.page);
     }
 }

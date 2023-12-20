@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { BasicInfoPage, BasicInfoForm } from '../pages/basic.info.page';
 
-test('code challenge', async ({ page }) => {
+test('automation challenge', async ({ page }) => {
   const formData: BasicInfoForm = {
     firstName: 'Eduardo',
     lastName: 'Valdez',
@@ -12,7 +12,6 @@ test('code challenge', async ({ page }) => {
   };
 
   const basicInfoPage = new BasicInfoPage(page);
-
   await basicInfoPage.goto();
   await basicInfoPage.verifyPageLoads();
   await basicInfoPage.fillForm(formData);
@@ -24,5 +23,8 @@ test('code challenge', async ({ page }) => {
   const additionalInfoPage = await questionsPage.clickSubmitButton();
   await additionalInfoPage.verifyPageLoads();
   await additionalInfoPage.verifyInputValue(`${formData.firstName} ${formData.lastName}`);
-
+  
+  const employerServices = await additionalInfoPage.clickSubmitButton();
+  await employerServices.verifyPageLoads();
+  await employerServices.verifyUrl();
 });
