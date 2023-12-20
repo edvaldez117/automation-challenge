@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { MainPage } from '../pages/main.page';
+import { BasicInfoPage, BasicInfoForm } from '../pages/basic.info.page';
 
 test('code challenge', async ({ page }) => {
-  const formData = {
-    firstName: 'Jose',
+  const formData: BasicInfoForm = {
+    firstName: 'Eduardo',
     lastName: 'Valdez',
     email: 'edvaldez117@gmail.com',
     street: 'Forjadores',
@@ -11,15 +11,18 @@ test('code challenge', async ({ page }) => {
     zipCode: '20180'
   };
 
-  const mainPage = new MainPage(page);
+  const basicInfoPage = new BasicInfoPage(page);
 
-  await mainPage.goto();
-  await mainPage.basicInfoPage.verifyPageLoads();
-  await mainPage.basicInfoPage.fillForm(formData);
-  await mainPage.clickSubmitButton();
-  await mainPage.questionsPage.verifyPageLoads();
-  await mainPage.questionsPage.selectNoQuestions();
-  await mainPage.clickSubmitButton();
+  await basicInfoPage.goto();
+  await basicInfoPage.verifyPageLoads();
+  await basicInfoPage.fillForm(formData);
+  
+  const questionsPage = await basicInfoPage.clickSubmitButton();
+  await questionsPage.verifyPageLoads();
+  await questionsPage.selectNoQuestions();
+  
+  const additionalInfoPage = await questionsPage.clickSubmitButton();
+  await additionalInfoPage.verifyPageLoads();
+  await additionalInfoPage.verifyInputValue(`${formData.firstName} ${formData.lastName}`);
 
-  await expect(page.getByText('Additional Information')).toBeVisible();
 });
