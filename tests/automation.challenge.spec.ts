@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { BasicInfoPage, BasicInfoForm } from '../pages/basic.info.page';
 
 test('automation challenge', async ({ page }) => {
@@ -18,7 +18,7 @@ test('automation challenge', async ({ page }) => {
   
   const questionsPage = await basicInfoPage.clickSubmitButton();
   await questionsPage.verifyPageLoads();
-  await questionsPage.selectNoQuestions();
+  await questionsPage.clickNoButtons();
   
   const additionalInfoPage = await questionsPage.clickSubmitButton();
   await additionalInfoPage.verifyPageLoads();
